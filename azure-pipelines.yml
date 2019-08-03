@@ -16,3 +16,9 @@ steps:
     projects: 'Youtube-Sync.sln'
     publishWebProjects: false
     zipAfterPublish: false
+    
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
