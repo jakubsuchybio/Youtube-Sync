@@ -20,5 +20,5 @@ steps:
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: 'src\bin\Debug\netcoreapp2.2\win10-x64\publish\'
-    ArtifactName: 'drop'
+    ArtifactName: 'Youtube-Sync-Publish'
     publishLocation: 'Container'
