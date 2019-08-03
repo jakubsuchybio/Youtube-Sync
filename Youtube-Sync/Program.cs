@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Timers;
 using Serilog;
 using Topshelf;
 
@@ -13,6 +12,8 @@ namespace Youtube_Sync
                 .WriteTo.Console()
                 .WriteTo.File("log.txt")
                 .CreateLogger();
+
+            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
 
             HostFactory.Run(windowsService =>
             {
@@ -33,31 +34,16 @@ namespace Youtube_Sync
             });
         }
 
-        private class YoutubeSyncService
+        private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            private readonly Timer _timer;
+            var obj = e.ExceptionObject;
 
-            public YoutubeSyncService()
-            {
-
-                _timer = new Timer { AutoReset = true, Interval = 30000 };
-                _timer.Elapsed += Timer_Elapsed;
-            }
-
-            private void Timer_Elapsed(object sender, ElapsedEventArgs e)
-            {
-                
-            }
-
-            public void Start()
-            {
-                _timer.Start();
-            }
-
-            public void Stop()
-            {
-                _timer.Stop();
-            }
+            if (obj is Exception ex)
+                Log.Fatal(ex, "Unhandled Exception");
+            else if (obj != null)
+                Log.Fatal($"Unknown error from CurrentDomain_UnhandledException. e.ExceptionObject: {obj}");
+            else
+                Log.Fatal("Unknown error from CurrentDomain_UnhandledException. e.ExceptionObject is null");
         }
     }
 }
