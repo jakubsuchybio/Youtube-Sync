@@ -19,6 +19,6 @@ steps:
     
 - task: PublishBuildArtifacts@1
   inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    PathtoPublish: 'src\bin\Debug\netcoreapp2.2\win10-x64\publish\'
     ArtifactName: 'drop'
     publishLocation: 'Container'
