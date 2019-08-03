@@ -13,8 +13,10 @@
     <PackageReference Include="Serilog" Version="2.8.0" />
     <PackageReference Include="Serilog.Sinks.Console" Version="3.1.1" />
     <PackageReference Include="Serilog.Sinks.File" Version="4.0.0" />
+    <PackageReference Include="System.IO.Packaging" Version="4.5.0" />
     <PackageReference Include="Topshelf" Version="4.2.1" />
     <PackageReference Include="Topshelf.Serilog" Version="4.2.1" />
+    <PackageReference Include="Topshelf.Squirrel.Updater" Version="0.0.9" />
   </ItemGroup>
 
 </Project>

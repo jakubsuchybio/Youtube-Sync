@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>Youtube-Sync</id>
+    <description>Youtube-Sync</description>
+    <authors>rEVolution-software</authors>
+  </metadata>
+  <files>
+    <file src="src\Youtube-Sync\bin\Debug\netcoreapp2.2\win10-x64\publish\**\*.*" target="lib\netcoreapp2.2\"/>
+  </files>
+</package>

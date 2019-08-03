@@ -1,6 +1,9 @@
 ﻿using System;
 using Serilog;
+using Squirrel;
 using Topshelf;
+using Topshelf.Squirrel.Updater;
+using Topshelf.Squirrel.Updater.Interfaces;
 
 namespace Youtube_Sync
 {
@@ -19,7 +22,25 @@ namespace Youtube_Sync
 
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
             
-            HostFactory.Run(hostConfig =>
+            // Start Service Updater
+            IUpdater selfupdater = null;
+            try 
+            {
+                Log.Information("Updater Initialization");
+                IUpdateManager updateManager = new UpdateManager(@"c:\Updates\Youtube-Sync\", AssemblyHelper.AssemblyTitle);
+                selfupdater = new RepeatedTimeUpdater(updateManager).SetCheckUpdatePeriod(TimeSpan.FromSeconds(5));
+                selfupdater.Start();
+            } 
+            catch(Exception exx)
+            {
+                Log.Fatal(exx, $"'{AssemblyHelper.AssemblyTitle}' is not installed via Squirrel. Install program first.");
+            }
+
+            // Start TopShelf 
+            var service = new YoutubeSyncService();
+            var x = new SquirreledHost(service, AssemblyHelper.CurrentAssembly, selfupdater, true, RunAS.LocalSystem);
+            //HostFactory.Run(hostConfig =>
+            x.ConfigureAndRun(hostConfig =>
             {
                 hostConfig.Service<YoutubeSyncService>(s =>
                 {

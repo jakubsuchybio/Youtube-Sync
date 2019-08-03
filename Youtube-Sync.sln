@@ -7,8 +7,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Youtube-Sync", "src\Youtube
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B6E8E504-3BE2-49FB-90F0-ACF71845B7C4}"
 	ProjectSection(SolutionItems) = preProject
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
 		azure-pipelines.yml = azure-pipelines.yml
+		build.ps1 = build.ps1
+		cake.config = cake.config
 		GitVersion.yml = GitVersion.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{1393E691-F292-41B2-988D-3B1A1A59F340}"
+	ProjectSection(SolutionItems) = preProject
+		tools\packages.config = tools\packages.config
 	EndProjectSection
 EndProject
 Global
@@ -24,6 +33,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1393E691-F292-41B2-988D-3B1A1A59F340} = {B6E8E504-3BE2-49FB-90F0-ACF71845B7C4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {15BEF90B-933B-4F2D-9580-0A52BC68FEE7}
