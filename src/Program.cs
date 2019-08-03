@@ -6,8 +6,6 @@ namespace Youtube_Sync
 {
     public class Program
     {
-        private const string UPDATE_DIR = @"c:\Updates\Youtube-Sync\";
-
         public static void Main()
         {
             Log.Logger = new LoggerConfiguration()
@@ -15,7 +13,7 @@ namespace Youtube_Sync
                 .WriteTo.File("log.txt")
                 .CreateLogger();
             
-            Log.Information("##########   Starting process '{0}', V '{1}'   ##########",
+            Log.Information("##########  Starting process '{0}', V '{1}'  ##########",
                 AssemblyHelper.AssemblyTitle,
                 AssemblyHelper.AssemblyVersion);
 
