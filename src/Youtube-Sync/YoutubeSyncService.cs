@@ -3,11 +3,10 @@ using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using Serilog;
-using Topshelf.Squirrel.Updater.Interfaces;
 
 namespace Youtube_Sync
 {
-    public class YoutubeSyncService : ISelfUpdatableService
+    public class YoutubeSyncService
     {
         private readonly CancellationTokenSource _cts;
         private readonly SemaphoreSlim _semaphore;

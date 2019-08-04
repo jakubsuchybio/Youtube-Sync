@@ -23,5 +23,6 @@ namespace Youtube_Sync
         }
         public static string AssemblyVersion => Assembly.GetCallingAssembly().GetName().Version.ToString();
         public static Assembly CurrentAssembly => Assembly.GetCallingAssembly();
+        public static string ExecutablePath => Assembly.GetCallingAssembly().Location;
     }
 }
