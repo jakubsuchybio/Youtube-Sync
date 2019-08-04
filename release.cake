@@ -41,13 +41,17 @@ Task("UpdateAndInstall")
     var setupPath = File("c:/Updates/Youtube-Sync/Setup.exe");
     Information(setupPath);
     StartProcess(setupPath);
+    System.Threading.Thread.Sleep(8000);
     
     var lastVersion = GetDirectories("c:/Users/jakub/AppData/Local/Youtube-Sync/app-*").Last();
     Information(lastVersion);
     var installPath = lastVersion + File("/Youtube-Sync.exe");
     Information(installPath);
     if(FileExists(installPath))
+    {
         InstallTopshelf(installPath);
+        StartTopshelf(installPath);
+    }
 });
 
 
