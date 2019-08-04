@@ -100,7 +100,7 @@ namespace Topshelf.Squirrel.Updater
         public delegate void ConfigureExt(HostConfigurator config);
 
         /// <summary>
-        /// Configures the specified configuration.
+        /// Configures the specified configuration. Test
         /// </summary>
         /// <param name="config">The configuration.</param>
         private void Configure(HostConfigurator config)
