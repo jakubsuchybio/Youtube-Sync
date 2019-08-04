@@ -9,13 +9,6 @@ namespace Topshelf.Squirrel.Updater.Builders
 {
 	public sealed class InstallAndStartHostBuilder : HostBuilder
 	{
-
-        #region Logger
-        
-        private static readonly LogWriter Log = HostLogger.Get(typeof(InstallAndStartHostBuilder));
-
-        #endregion
-
         /// <summary>
         /// The install builder
         /// </summary>

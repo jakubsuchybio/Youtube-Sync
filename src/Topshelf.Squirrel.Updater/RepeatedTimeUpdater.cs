@@ -2,6 +2,7 @@
 using System.Reflection;
 using System.Threading.Tasks;
 using NuGet;
+using Serilog;
 using Squirrel;
 using Topshelf.Squirrel.Updater.Interfaces;
 using Topshelf.Logging;
@@ -10,13 +11,6 @@ namespace Topshelf.Squirrel.Updater
 {
     public class RepeatedTimeUpdater : IUpdater
     {
-
-        #region Logger
-
-        private static readonly LogWriter Log = HostLogger.Get(typeof(RepeatedTimeUpdater));
-
-        #endregion
-
         /// <summary>
         /// The check update period
         /// </summary>
@@ -74,7 +68,7 @@ namespace Topshelf.Squirrel.Updater
             if (updateManager == null)
                 throw new Exception("Update manager can not be null");
 
-            Log.InfoFormat("Automatic-renewal was launched ({0})", curversion);
+            Log.Information("Automatic-renewal was launched ({0})", curversion);
 
             {
                 while (true)
@@ -87,11 +81,11 @@ namespace Topshelf.Squirrel.Updater
                         try
                         {
                             var oldVersion = update.CurrentlyInstalledVersion?.Version ?? new SemanticVersion(0, 0, 0, 0);
-                            Log.InfoFormat("Installed version: {0}", oldVersion);
+                            Log.Information("Installed version: {0}", oldVersion);
                             var newVersion = update.FutureReleaseEntry.Version;
                             if (oldVersion < newVersion)
                             {
-                                Log.InfoFormat("Found a new version: {0}", newVersion);
+                                Log.Information("Found a new version: {0}", newVersion);
 
                                 // Downlaod Release
                                 await updateManager.DownloadReleases(update.ReleasesToApply);
@@ -102,12 +96,12 @@ namespace Topshelf.Squirrel.Updater
                         }
                         catch (Exception ex)
                         {
-                            Log.ErrorFormat("Error on update ({0}): {1}", curversion, ex);
+                            Log.Fatal("Error on update ({0}): {1}", curversion, ex);
                         }
                     }
                     catch (Exception ex)
                     {
-                        Log.ErrorFormat("Error on check for update ({0}): {1}", curversion, ex);
+                        Log.Fatal("Error on check for update ({0}): {1}", curversion, ex);
                     }
                 }
             }

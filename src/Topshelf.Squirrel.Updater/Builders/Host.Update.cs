@@ -2,6 +2,7 @@ using System;
 using System.Diagnostics;
 using System.Linq;
 using System.Management;
+using Serilog;
 using Topshelf.Builders;
 using Topshelf.Logging;
 using Topshelf.Runtime;
@@ -14,13 +15,6 @@ namespace Topshelf.Squirrel.Updater.Builders
 {
 	public sealed class UpdateHostBuilder : HostBuilder
 	{
-
-        #region Logger
-
-        private static readonly LogWriter Log = HostLogger.Get(typeof(UpdateHostBuilder));
-
-        #endregion
-
         /// <summary>
         /// The stop old host builder
         /// </summary>
@@ -208,31 +202,31 @@ namespace Topshelf.Squirrel.Updater.Builders
             /// <returns></returns>
             public TopshelfExitCode Run()
 			{
-				Log.InfoFormat("Update {0} Overlapping", _withOverlapping ? "with" : "without");
+				Log.Information("Update {0} Overlapping", _withOverlapping ? "with" : "without");
 				var exitCode = TopshelfExitCode.Ok;
 				if (!_withOverlapping)
 				{
 					exitCode = _stopOldHost.Run();
-					Log.InfoFormat("Service was self-stopped");
+					Log.Information("Service was self-stopped");
 				}
 				if (exitCode == TopshelfExitCode.Ok)
 				{
 					exitCode = _installAndStartNewHost.Run();
 					if (exitCode == TopshelfExitCode.Ok)
 					{
-						Log.InfoFormat("Started new version");
+						Log.Information("Started new version");
 						if (_withOverlapping)
 							_stopOldHost.Run();
 						exitCode = _uninstallOldHost.Run();
-						Log.InfoFormat("The update has been successfully completed.");
+						Log.Information("The update has been successfully completed.");
 					}
 					else
 					{
-						Log.InfoFormat("Not started new version.");
+						Log.Information("Not started new version.");
 						if (!_withOverlapping)
 							exitCode = _startOldHost.Run();
 						exitCode = _stopAndUninstallNewHost.Run();
-						Log.WarnFormat("During the update failed and was rolled back.");
+						Log.Warning("During the update failed and was rolled back.");
 					}
 				}
 

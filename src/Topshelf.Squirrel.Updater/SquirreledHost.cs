@@ -1,8 +1,8 @@
-﻿using SimpleExtension.Topshelf;
-using System;
+﻿using System;
 using System.Reflection;
+using Serilog;
+using SimpleExtension.Topshelf;
 using Topshelf.HostConfigurators;
-using Topshelf.Logging;
 using Topshelf.Squirrel.Updater.Builders;
 using Topshelf.Squirrel.Updater.Interfaces;
 
@@ -13,13 +13,6 @@ namespace Topshelf.Squirrel.Updater
 {
     public class SquirreledHost
     {
-
-        #region Logger
-
-        private static readonly LogWriter Log = HostLogger.Get(typeof(SquirreledHost));
-
-        #endregion
-
         /// <summary>
         /// Service RunAs 'Login'
         /// </summary>
@@ -64,11 +57,11 @@ namespace Topshelf.Squirrel.Updater
         /// Initializes a new instance of the <see cref="SquirreledHost"/> class.
         /// </summary>
         public SquirreledHost(
-			ISelfUpdatableService selfUpdatableService,  Assembly pHostAssembly, IUpdater updater = null, bool withOverlapping = false, RunAS pTypeRunAs = RunAS.LocalSystem)
-		{
+            ISelfUpdatableService selfUpdatableService, Assembly pHostAssembly, IUpdater updater = null, bool withOverlapping = false, RunAS pTypeRunAs = RunAS.LocalSystem)
+        {
             this.HostAssembly = pHostAssembly;
             this.selfUpdatableService = selfUpdatableService;
-			this.withOverlapping = withOverlapping;
+            this.withOverlapping = withOverlapping;
             TypeRunAs = pTypeRunAs;
             promptForCredentialsWhileInstalling = false;
             serviceLogin = "";
@@ -77,8 +70,8 @@ namespace Topshelf.Squirrel.Updater
             {
                 promptForCredentialsWhileInstalling = true;
             }
-			this.updater = updater;
-		}
+            this.updater = updater;
+        }
 
         /// <summary>
         /// Set credential of Service User
@@ -96,9 +89,9 @@ namespace Topshelf.Squirrel.Updater
         /// </summary>
         /// <param name="configureExt">The configure ext.</param>
         public void ConfigureAndRun(ConfigureExt configureExt = null)
-		{
-			HostFactory.Run(configurator => { Configure(configurator); configureExt?.Invoke(configurator); });
-		}
+        {
+            HostFactory.Run(configurator => { Configure(configurator); configureExt?.Invoke(configurator); });
+        }
 
         /// <summary>
         /// 
@@ -111,7 +104,7 @@ namespace Topshelf.Squirrel.Updater
         /// </summary>
         /// <param name="config">The configuration.</param>
         private void Configure(HostConfigurator config)
-		{
+        {
             try
             {
                 config.Service<ISelfUpdatableService>(service =>
@@ -164,10 +157,11 @@ namespace Topshelf.Squirrel.Updater
                 config.AddCommandLineDefinition("updated", version => { config.UseHostBuilder((env, settings) => new UpdateHostBuilder(env, settings, version, withOverlapping)); });
                 config.AddCommandLineDefinition("install", version => { config.UseHostBuilder((env, settings) => new InstallAndStartHostBuilder(env, settings, version)); });
                 config.AddCommandLineDefinition("uninstall", _ => { config.UseHostBuilder((env, settings) => new StopAndUninstallHostBuilder(env, settings)); });
-            } catch (Exception ex)
-            {
-                Log.Error("Exception : ", ex);
             }
-		}
-	}
+            catch (Exception ex)
+            {
+                Log.Fatal("Exception : ", ex);
+            }
+        }
+    }
 }

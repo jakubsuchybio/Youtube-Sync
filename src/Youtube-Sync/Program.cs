@@ -13,7 +13,7 @@ namespace Youtube_Sync
         {
             Log.Logger = new LoggerConfiguration()
                 .WriteTo.Console()
-                .WriteTo.File("log.txt")
+                .WriteTo.File("C:/ProgramData/youtube-sync.txt")
                 .CreateLogger();
             
             Log.Information("##########  Starting process '{0}', V '{1}'  ##########",

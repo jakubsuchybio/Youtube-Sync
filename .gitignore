@@ -7,7 +7,7 @@ tools/Cake
 tools/Cake.Bakery
 tools/Cake.BuildSystems.Module
 tools/GitVersion.CommandLine.4.0.0
-tools/squirrel.windows.1.9.1
+tools/squirrel.windows.1.9.0
 tools/xunit.runner.console.2.4.1
 tools/packages.config.md5sum
 tools/nuget.exe

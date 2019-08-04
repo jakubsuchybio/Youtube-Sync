@@ -11,12 +11,6 @@ namespace Topshelf.Squirrel.Updater.Builders
 {
     public sealed class StopAndUninstallHostBuilder : HostBuilder
     {
-        #region Logger
-
-        private static readonly LogWriter Log = HostLogger.Get(typeof(StopAndUninstallHostBuilder));
-
-        #endregion
-
         /// <summary>
         /// The stop builder
         /// </summary>
