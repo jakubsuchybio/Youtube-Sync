@@ -76,17 +76,11 @@ Task("Releasify")
 		var settings = new SquirrelSettings {
             NoMsi = true,
             Silent = true,
-            ReleaseDirectory = "./artifacts/Releases/"
+            ReleaseDirectory = "c:/Updates/Youtube-Sync/"
         };
 
         var file = GetFiles("./artifacts/*.nupkg").First();
 		Squirrel(file, settings);
-	});
-
-Task("CopyToUpdates")
-    .IsDependentOn("Releasify")
-	.Does(() => {
-        CopyDirectory("./artifacts/Releases/", "c:/Updates/Youtube-Sync/");
 	});
 
 // TASK TARGETS
