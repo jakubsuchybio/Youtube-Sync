@@ -22,6 +22,10 @@ namespace Youtube_Sync
 
         public async void Start()
         {
+            var home = Environment.GetEnvironmentVariable("HOME");
+            if(string.IsNullOrEmpty(home))
+                Environment.SetEnvironmentVariable("HOME", @"c:\Users\jakub\");
+
             _ = Task.Factory.StartNew(YoutubeDlAutoUpdatingTask, TaskCreationOptions.LongRunning);
             await Task.Delay(1000);
             _ = Task.Factory.StartNew(DumbAutoDownloadingTask, TaskCreationOptions.LongRunning);
