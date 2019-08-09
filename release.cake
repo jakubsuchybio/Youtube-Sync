@@ -21,13 +21,13 @@ Task("Releasify")
             NoMsi = true
         };
         var currentFolderFiles = GetFiles("**");
-        Information(string.Join(";", currentFolderFiles));
+        Information(string.Join(";", currentFolderFiles.Select(x=>x.FullPath)));
         var currentFolderFiles2 = GetFiles("nuget");
-        Information(string.Join(";", currentFolderFiles2));
+        Information(string.Join(";", currentFolderFiles2.Select(x=>x.FullPath)));
         var currentFolderFiles3 = GetFiles("nuget/nuget");
-        Information(string.Join(";", currentFolderFiles3));
+        Information(string.Join(";", currentFolderFiles3.Select(x=>x.FullPath)));
         var files = GetFiles("nuget/nuget/*.nupkg");
-        Information(string.Join(";", files));
+        Information(string.Join(";", files.Select(x=>x.FullPath)));
         var file = files.Last();
         Information(file);
 		Squirrel(file, settings);
