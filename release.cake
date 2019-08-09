@@ -21,10 +21,7 @@ var target = Argument("target", "Default");
 Task("Releasify")
 	.Does(() => {
 		var settings = new SquirrelSettings {
-            NoMsi = true,
-            Silent = true,
-            ReleaseDirectory = "/artifacts/Releases/",
-
+            NoMsi = true
         };
 
         var file = GetFiles("**/*.nupkg").Last();
