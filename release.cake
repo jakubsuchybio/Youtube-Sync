@@ -19,7 +19,6 @@ var target = Argument("target", "Default");
 
 // How to package with the settings
 Task("Releasify")
-    .IsDependentOn("Package")
 	.Does(() => {
 		var settings = new SquirrelSettings {
             NoMsi = true,
@@ -28,7 +27,7 @@ Task("Releasify")
 
         };
 
-        var file = GetFiles("*.nupkg").Last();
+        var file = GetFiles("**/*.nupkg").Last();
 		Squirrel(file, settings);
 	});
 
