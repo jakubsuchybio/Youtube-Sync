@@ -35,7 +35,7 @@ Task("Releasify")
 
         };
 
-        var file = GetFiles("./artifacts/*.nupkg").First();
+        var file = GetFiles("./nuget/*.nupkg").Last();
 		Squirrel(file, settings);
 	});
 
