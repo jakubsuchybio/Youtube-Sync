@@ -15,17 +15,7 @@ var target = Argument("target", "Default");
 // TODO download all previous releases to make a differential update
 
 // How to package with the settings
-Task("Releasify")
-	.Does(() => {
-		var settings = new SquirrelSettings {
-            NoMsi = true
-        };
-        var files = GetFiles("*.nupkg");
-        Information(string.Join(";", files.Select(x=>x.FullPath)));
-        var file = files.Last();
-        Information(file);
-		Squirrel(file, settings); 
-	});
+
 
 // Task("FindAndUninstall")
 //     .Does(() =>
