@@ -7,11 +7,13 @@ namespace Youtube_Sync
 {
     public class Program
     {
+        private const string LOGGER_TEMPLATE = "{Timestamp:HH:mm:ss.fffffff zzz} [{Level:u3}] [{ThreadId}] {Message:j}{NewLine}{Exception}";
+        
         public static void Main()
         {
             Log.Logger = new LoggerConfiguration()
-                .WriteTo.Console()
-                .WriteTo.File("C:/ProgramData/youtube-sync.txt")
+                .WriteTo.Console(outputTemplate: LOGGER_TEMPLATE)
+                .WriteTo.File("C:/ProgramData/youtube-sync.txt", outputTemplate: LOGGER_TEMPLATE)
                 .CreateLogger();
 
             Log.Information("##########  Starting process '{0}', V '{1}'  ##########",

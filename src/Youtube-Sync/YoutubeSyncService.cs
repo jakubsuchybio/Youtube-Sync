@@ -80,7 +80,7 @@ namespace Youtube_Sync
                     _semaphore.Release();
                 }
 
-                await Task.Delay(1000);
+                await Task.Delay(15000);
             }
         }
 
