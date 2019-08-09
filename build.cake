@@ -69,23 +69,9 @@ Task("Package")
     NuGetPack("./Youtube-Sync.nuspec", new NuGetPackSettings { OutputDirectory = "./artifacts" , Version = packageVersion });
 });
 
-// How to package with the settings
-Task("Releasify")
-    .IsDependentOn("Package")
-	.Does(() => {
-		var settings = new SquirrelSettings {
-            NoMsi = true,
-            Silent = true,
-            ReleaseDirectory = "c:/Updates/Youtube-Sync/"
-        };
-
-        var file = GetFiles("./artifacts/*.nupkg").First();
-		Squirrel(file, settings);
-	});
-
 // TASK TARGETS
 Task("Default")
-    .IsDependentOn("Releasify");
+    .IsDependentOn("Package");
 
 // EXECUTION
 RunTarget(target);
