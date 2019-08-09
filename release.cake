@@ -21,7 +21,10 @@ Task("Releasify")
             NoMsi = true
         };
 
-        var file = GetFiles("nuget/nuget/*.nupkg").Last();
+        var files = GetFiles("nuget/nuget/*.nupkg");
+        Information(files);
+        var file = files.Last();
+        Information(file);
 		Squirrel(file, settings);
 	});
 
