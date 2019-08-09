@@ -20,7 +20,7 @@ Task("Releasify")
 		var settings = new SquirrelSettings {
             NoMsi = true
         };
-        var currentFolderFiles = GetFiles(".");
+        var currentFolderFiles = GetFiles("**");
         Information(string.Join(";", currentFolderFiles));
         var currentFolderFiles2 = GetFiles("nuget");
         Information(string.Join(";", currentFolderFiles2));
