@@ -20,17 +20,11 @@ Task("Releasify")
 		var settings = new SquirrelSettings {
             NoMsi = true
         };
-        var currentFolderFiles = GetFiles("**");
-        Information(string.Join(";", currentFolderFiles.Select(x=>x.FullPath)));
-        var currentFolderFiles2 = GetFiles("nuget");
-        Information(string.Join(";", currentFolderFiles2.Select(x=>x.FullPath)));
-        var currentFolderFiles3 = GetFiles("nuget/nuget");
-        Information(string.Join(";", currentFolderFiles3.Select(x=>x.FullPath)));
-        var files = GetFiles("nuget/nuget/*.nupkg");
+        var files = GetFiles("*.nupkg");
         Information(string.Join(";", files.Select(x=>x.FullPath)));
         var file = files.Last();
         Information(file);
-		Squirrel(file, settings);
+		Squirrel(file, settings); 
 	});
 
 // Task("FindAndUninstall")
