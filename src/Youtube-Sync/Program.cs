@@ -16,7 +16,7 @@ namespace Youtube_Sync
                 .WriteTo.File("C:/ProgramData/youtube-sync.txt", outputTemplate: LOGGER_TEMPLATE)
                 .CreateLogger();
 
-            Log.Information("##########  Starting process '{0}', V '{1}'  ##########",
+            Log.Information("##########  Starting x process '{0}', V '{1}'  ##########",
                 AssemblyHelper.AssemblyTitle,
                 AssemblyHelper.AssemblyVersion);
 
