@@ -48,8 +48,8 @@ namespace Youtube_Sync
                 hostConfig.SetDisplayName("rEv-soft Youtube Sync");
                 hostConfig.SetServiceName("rEv-soft Youtube Sync");
 
-                hostConfig.AddCommandLineSwitch("squirrel", x => { });
-                hostConfig.AddCommandLineDefinition("firstrun", x => { });
+                hostConfig.AddCommandLineSwitch("squirrel", x => { Environment.Exit(0); });
+                hostConfig.AddCommandLineDefinition("firstrun", x => { Environment.Exit(0); });
             });
         }
 
