@@ -110,6 +110,11 @@ Task("UpdateAndInstall")
     Information(setupPath);
     StartProcess(setupPath);
 	System.Threading.Thread.Sleep(8000);
+
+	StartPowershellScript("taskkill", args =>
+    {
+        args.Append("/IM Youtube-Sync.exe /F");
+    });
     
     var lastVersion = GetDirectories("c:/Users/jakub/AppData/Local/Youtube-Sync/app-*").Last();
     Information(lastVersion);
