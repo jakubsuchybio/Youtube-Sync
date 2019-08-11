@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Reflection;
+using Easy.Common;
 using Serilog;
 using Topshelf;
-using System.Threading.Tasks;
-using Easy.Common;
 
 [assembly: AssemblyMetadata("SquirrelAwareVersion", "1")]
 

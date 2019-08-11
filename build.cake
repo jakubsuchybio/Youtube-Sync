@@ -16,6 +16,7 @@ var target = Argument("target", "Default");
 //////////////////////////////////////////////////////////////////////
 
 var slnFile = "Youtube-Sync.sln";
+var serviceName = "rEv-soft Youtube Sync";
 string packageVersion;
 
 //////////////////////////////////////////////////////////////////////
@@ -88,13 +89,17 @@ Task("FindAndUninstall")
     .IsDependentOn("Releasify")
     .Does(() =>
 {
-    var lastVersion = GetDirectories("c:/Users/jakub/AppData/Local/Youtube-Sync/app-*").Last();
-    Information(lastVersion);
-    var uninstallPath = lastVersion + File("/Youtube-Sync.exe");
-    Information(uninstallPath);
+    var installedPaths = GetDirectories("c:/Users/jakub/AppData/Local/Youtube-Sync/app-*");
+	if(installedPaths.Count != 0)
+	{
+		var lastVersion = installedPaths.Last();
+		Information(lastVersion);
+		var uninstallPath = lastVersion + File("/Youtube-Sync.exe");
+		Information(uninstallPath);
 
-    if(FileExists(uninstallPath))
-        UninstallTopshelf(uninstallPath);
+		if(FileExists(uninstallPath))
+			UninstallTopshelf(uninstallPath);
+	}
 });
 
 Task("UpdateAndInstall")
@@ -104,6 +109,7 @@ Task("UpdateAndInstall")
     var setupPath = File("c:/Updates/Youtube-Sync/Setup.exe");
     Information(setupPath);
     StartProcess(setupPath);
+	System.Threading.Thread.Sleep(8000);
     
     var lastVersion = GetDirectories("c:/Users/jakub/AppData/Local/Youtube-Sync/app-*").Last();
     Information(lastVersion);
@@ -114,6 +120,24 @@ Task("UpdateAndInstall")
         InstallTopshelf(installPath);
         StartTopshelf(installPath);
     }
+});
+
+Task("StartService")
+    .Does(() =>
+{
+    StartService(serviceName);
+});
+
+Task("StopService")
+    .Does(() =>
+{
+    StopService(serviceName);
+});
+
+Task("RestartService")
+    .Does(() =>
+{
+    RestartService(serviceName);
 });
 
 // TASK TARGETS

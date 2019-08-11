@@ -3,6 +3,7 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <RuntimeIdentifier>win10-x64</RuntimeIdentifier>
+    <RootNamespace>Youtube_Sync</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
