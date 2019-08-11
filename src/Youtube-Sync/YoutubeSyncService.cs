@@ -42,7 +42,6 @@ namespace Youtube_Sync
                         Utils.ProcessRun(YoutubeDlPath, "--update", 1000 * 60);
 
                         Log.Information("Updating youtube-dl ended");
-                        throw new Exception("test");
                     }
                 }
                 catch (Exception ex)
