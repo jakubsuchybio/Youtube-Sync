@@ -18,7 +18,7 @@ namespace Youtube_Sync
         {
             Log.Logger = new LoggerConfiguration()
                 .WriteTo.Console(outputTemplate: LOGGER_TEMPLATE)
-                .WriteTo.File("C:/ProgramData/youtube-sync.txt", outputTemplate: LOGGER_TEMPLATE)
+                .WriteTo.File("C:/ProgramData/youtube-sync.txt", outputTemplate: LOGGER_TEMPLATE, shared: true)
                 .CreateLogger();
 
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
