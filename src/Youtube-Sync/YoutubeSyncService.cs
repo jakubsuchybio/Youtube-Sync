@@ -33,13 +33,21 @@ namespace Youtube_Sync
         {
             while (!_cts.IsCancellationRequested)
             {
-                using (await _youtubeDlSemaphore.LockAsync())
+                try
                 {
-                    Log.Information("Updating youtube-dl starts");
+                    using (await _youtubeDlSemaphore.LockAsync())
+                    {
+                        Log.Information("Updating youtube-dl starts");
 
-                    Utils.ProcessRun(YoutubeDlPath, "--update", 1000 * 60);
+                        Utils.ProcessRun(YoutubeDlPath, "--update", 1000 * 60);
 
-                    Log.Information("Updating youtube-dl ended");
+                        Log.Information("Updating youtube-dl ended");
+                        throw new Exception("test");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Log.Fatal(ex, "YoutubeDlAutoUpdatingTask crashed");
                 }
 
                 await Task.Delay(TimeSpan.FromHours(12));
@@ -50,13 +58,20 @@ namespace Youtube_Sync
         {
             while (!_cts.IsCancellationRequested)
             {
-                using (await _youtubeDlSemaphore.LockAsync())
+                try
                 {
-                    Log.Information("Downloading of Watch Later starts");
+                    using (await _youtubeDlSemaphore.LockAsync())
+                    {
+                        Log.Information("Downloading of Watch Later starts");
 
-                    Utils.ProcessRun(YoutubeDlPath, $@"--netrc --ignore-errors -o {OutputDir}%(id)s-%(resolution)s-%(uploader)s-%(title)s.%(ext)s https://www.youtube.com/playlist?list=WL", 1000 * 60 * 60 * 24);
+                        Utils.ProcessRun(YoutubeDlPath, $@"--netrc --ignore-errors -o {OutputDir}%(id)s-%(resolution)s-%(uploader)s-%(title)s.%(ext)s https://www.youtube.com/playlist?list=WL", 1000 * 60 * 60 * 24);
 
-                    Log.Information("Downloading of Watch Later ended");
+                        Log.Information("Downloading of Watch Later ended");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Log.Fatal(ex, "DumbAutoDownloadingTask crashed");
                 }
 
                 await Task.Delay(15000);

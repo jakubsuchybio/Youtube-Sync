@@ -1,11 +1,12 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
+using System.Threading.Tasks;
 using Serilog;
 
 namespace Youtube_Sync
 {
     public static class Utils
     {
-
         public static int ProcessRun(string filePath, string arguments, int timeout)
         {
             var startInfo = new ProcessStartInfo

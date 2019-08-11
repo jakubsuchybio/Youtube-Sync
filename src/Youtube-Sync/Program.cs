@@ -2,6 +2,7 @@
 using System.Reflection;
 using Easy.Common;
 using Serilog;
+using Serilog.Exceptions;
 using Topshelf;
 
 [assembly: AssemblyMetadata("SquirrelAwareVersion", "1")]
@@ -15,6 +16,9 @@ namespace Youtube_Sync
         public static void Main()
         {
             Log.Logger = new LoggerConfiguration()
+                .Enrich.WithThreadId()
+                .Enrich.WithExceptionDetails()
+                .Enrich.WithDemystifiedStackTraces()
                 .WriteTo.Console(outputTemplate: LOGGER_TEMPLATE)
                 .WriteTo.File("C:/ProgramData/youtube-sync.txt", outputTemplate: LOGGER_TEMPLATE, shared: true)
                 .CreateLogger();
