@@ -6,6 +6,6 @@
     <authors>rEVolution-software</authors>
   </metadata>
   <files>
-    <file src="src\Youtube-Sync\bin\Debug\netcoreapp2.2\win10-x64\publish\**\*.*" target="lib\netcoreapp2.2\"/>
+    <file src="src\Youtube-Sync\bin\Debug\net48\win10-x64\publish\**\*.*" target="lib\net48\"/>
   </files>
 </package>
