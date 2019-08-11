@@ -47,6 +47,9 @@ namespace Youtube_Sync
                 hostConfig.SetDescription("This service synchronizes youtube play-lists with filesystem");
                 hostConfig.SetDisplayName("rEv-soft Youtube Sync");
                 hostConfig.SetServiceName("rEv-soft Youtube Sync");
+
+                hostConfig.AddCommandLineSwitch("squirrel", x => { });
+                hostConfig.AddCommandLineDefinition("firstrun", x => { });
             });
         }
 
