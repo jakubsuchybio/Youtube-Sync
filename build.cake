@@ -2,6 +2,8 @@
 #tool GitVersion.CommandLine&version=4.0.0
 #tool Squirrel.Windows&version=1.9.0
 #addin Cake.Squirrel&version=0.15.1
+#addin Cake.Services&version=0.3.5
+#addin Cake.Topshelf&version=0.2.4
 
 //////////////////////////////////////////////////////////////////////
 // ARGUMENTS
@@ -74,16 +76,49 @@ Task("Releasify")
 	.Does(() => {
 		var settings = new SquirrelSettings {
             NoMsi = true,
-            ReleaseDirectory = "./artifacts/Releases"
+            ReleaseDirectory = "c:/Updates/Youtube-Sync"
         };
         
         var file = GetFiles("./artifacts/*.nupkg").Last();
 		Squirrel(file, settings); 
 	});
+	
+
+Task("FindAndUninstall")
+    .IsDependentOn("Releasify")
+    .Does(() =>
+{
+    var lastVersion = GetDirectories("c:/Users/jakub/AppData/Local/Youtube-Sync/app-*").Last();
+    Information(lastVersion);
+    var uninstallPath = lastVersion + File("/Youtube-Sync.exe");
+    Information(uninstallPath);
+
+    if(FileExists(uninstallPath))
+        UninstallTopshelf(uninstallPath);
+});
+
+Task("UpdateAndInstall")
+    .IsDependentOn("FindAndUninstall")
+    .Does(() =>
+{
+    var setupPath = File("c:/Updates/Youtube-Sync/Setup.exe");
+    Information(setupPath);
+    StartProcess(setupPath);
+    
+    var lastVersion = GetDirectories("c:/Users/jakub/AppData/Local/Youtube-Sync/app-*").Last();
+    Information(lastVersion);
+    var installPath = lastVersion + File("/Youtube-Sync.exe");
+    Information(installPath);
+    if(FileExists(installPath))
+    {
+        InstallTopshelf(installPath);
+        StartTopshelf(installPath);
+    }
+});
 
 // TASK TARGETS
 Task("Default")
-    .IsDependentOn("Releasify");
+    .IsDependentOn("UpdateAndInstall");
 
 // EXECUTION
 RunTarget(target);

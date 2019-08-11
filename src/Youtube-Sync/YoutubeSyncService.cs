@@ -28,7 +28,7 @@ namespace Youtube_Sync
 
             _ = Task.Factory.StartNew(YoutubeDlAutoUpdatingTask, TaskCreationOptions.LongRunning);
             await Task.Delay(1000);
-            //_ = Task.Factory.StartNew(DumbAutoDownloadingTask, TaskCreationOptions.LongRunning);
+            _ = Task.Factory.StartNew(DumbAutoDownloadingTask, TaskCreationOptions.LongRunning);
         }
 
         public void Stop()
