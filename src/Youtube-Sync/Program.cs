@@ -48,9 +48,15 @@ namespace Youtube_Sync
                 hostConfig.SetDisplayName("rEv-soft Youtube Sync");
                 hostConfig.SetServiceName("rEv-soft Youtube Sync");
 
-                hostConfig.AddCommandLineSwitch("squirrel", x => { Environment.Exit(0); });
-                hostConfig.AddCommandLineDefinition("firstrun", x => { Environment.Exit(0); });
+                hostConfig.AddCommandLineSwitch("squirrel", x => StopMyself("Stopping because of squirrel parameter specified"));
+                hostConfig.AddCommandLineDefinition("firstrun", x => StopMyself("Stopping because of firstrun parameter specified"));
             });
+        }
+
+        private static void StopMyself(string message)
+        {
+            Log.Warning(message);
+            Environment.Exit(0);
         }
 
         private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
