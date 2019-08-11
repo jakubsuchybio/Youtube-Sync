@@ -25,6 +25,12 @@ namespace Youtube_Sync
 
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
 
+            SquirrelAwareApp.HandleEvents(
+                onInitialInstall: v => CallCustomInstallScript(),
+                onAppUpdate: v => { },
+                onAppUninstall: v => { },
+                onFirstRun: () => { });
+
             Task.Factory.StartNew(CheckForUpdates, TaskCreationOptions.LongRunning);
 
             Log.Information("##########  Starting process '{0}', V '{1}'  ##########",
@@ -96,6 +102,11 @@ namespace Youtube_Sync
                     await Task.Delay(5000);
                 }
             }
+        }
+
+        private static void CallCustomInstallScript()
+        {
+            Debugger.Launch();
         }
 
         private static void CallCustomUpdateScript()
